@@ -46,7 +46,9 @@ class Queries(DataBaseConnection):
         rows = self.cursor.fetchall()
         for row in rows[:limit]:
             print(row)
+        self.connection.commit()
         self.cursor.close()
+        return rows
 
     def insert_new_record(self, command):
         self.cursor = self.connection.cursor()
@@ -65,6 +67,42 @@ class Queries(DataBaseConnection):
             print('Record updated!')
         except (psycopg2.ProgrammingError, psycopg2.IntegrityError) as error:
             print('Record not updated!')
+            print(error)
+        self.connection.commit()
+        self.cursor.close()
+
+    def delete_row(self, command):
+        """Delete row"""
+        self.cursor = self.connection.cursor()
+        try:
+            self.cursor.execute(command)
+            print('Row delete!')
+        except (psycopg2.ProgrammingError, psycopg2.IntegrityError) as error:
+            print('Row not deleted!')
+            print(error)
+        self.connection.commit()
+        self.cursor.close()
+
+    def add_new_column(self, command):
+        """Add new column"""
+        self.cursor = self.connection.cursor()
+        try:
+            self.cursor.execute(command)
+            print('ADD new column!')
+        except (psycopg2.ProgrammingError, psycopg2.IntegrityError) as error:
+            print('New column not added!')
+            print(error)
+        self.connection.commit()
+        self.cursor.close()
+
+    def delete_column(self, command):
+        """Delete column"""
+        self.cursor = self.connection.cursor()
+        try:
+            self.cursor.execute(command)
+            print('Delete column!')
+        except (psycopg2.ProgrammingError, psycopg2.IntegrityError) as error:
+            print('Column not deleted!')
             print(error)
         self.connection.commit()
         self.cursor.close()

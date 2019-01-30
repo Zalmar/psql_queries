@@ -3,7 +3,7 @@ from psql_q.queries import Queries
 
 def main():
     db = Queries()
-    command = f"""CREATE TABLE
+    command = f"""CREATE TABLE IF NOT EXISTS
     pups(user_id INTEGER PRIMARY KEY, name text, bdate text, city text);"""
     db.create_table(command)
 
@@ -18,7 +18,7 @@ def main():
     VALUES(123, 'Pupsya', '10.12.2011', 'Samara');"""
     db.insert_new_record(command)
 
-    command = f"""SELECT name,city FROM pups;"""
+    command = f"""SELECT * FROM pups;"""
     db.select_table(command, limit=10)
 
     command = f"""UPDATE pups SET name = 'Pups' 
@@ -26,8 +26,32 @@ def main():
     db.update_record(command)
 
     command = f"""UPDATE pups SET user_id = 777 
-    WHERE name = 'Pups';"""
+    WHERE name = 'Pupsya';"""
     db.update_record(command)
+
+    command = f"""SELECT * FROM pups;"""
+    db.select_table(command, limit=10)
+
+    command = f"""DELETE from pups WHERE user_id = 777;"""
+    db.delete_row(command)
+
+    command = f"""SELECT * FROM pups;"""
+    db.select_table(command, limit=10)
+
+    command = f"""DELETE from pups WHERE user_id = 777;"""
+    db.delete_row(command)
+
+    command = f"""SELECT * FROM pups;"""
+    db.select_table(command, limit=10)
+
+    command = f"""ALTER TABLE pups ADD Language text DEFAULT 'English';"""
+    db.add_new_column(command)
+
+    command = f"""SELECT * FROM pups;"""
+    db.select_table(command, limit=10)
+
+    command = f"""ALTER TABLE pups DROP Language;"""
+    db.delete_column(command)
 
     command = f"""SELECT * FROM pups;"""
     db.select_table(command, limit=10)
