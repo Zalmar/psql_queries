@@ -3,7 +3,7 @@
 Script for jobs with Postgresql,
 uses libs **psycopg2** >= 2.7.7
 
-#Before use fill the settings.ini!
+### Before use fill the settings.ini!
 
 # Queries:
 - CREATE TABLE
@@ -12,4 +12,4 @@ uses libs **psycopg2** >= 2.7.7
 - INSERT
 - UPDATE
 
-# Check example.py
+## Please, check example.py
