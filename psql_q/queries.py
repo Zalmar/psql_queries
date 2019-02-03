@@ -106,3 +106,12 @@ class Queries(DataBaseConnection):
             print(error)
         self.connection.commit()
         self.cursor.close()
+
+    def get_last_row(self, table_name='pups'):
+        self.cursor = self.connection.cursor()
+        command = f"""SELECT * FROM {table_name};"""
+        self.cursor.execute(command)
+        rows = self.cursor.fetchall()[-1]
+        self.connection.commit()
+        self.cursor.close()
+        return rows
